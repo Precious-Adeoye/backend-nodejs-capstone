@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const pinoLogger = require('./logger');
 const path = require('path');
+const authRoutes = require('./routes/authRoutes');
 
 const connectToDatabase = require('./models/db');
 const {loadData} = require("./util/import-mongo/index");
@@ -12,6 +13,7 @@ const {loadData} = require("./util/import-mongo/index");
 const app = express();
 app.use("*",cors());
 const port = 3060;
+
 
 // Connect to MongoDB; we just do this one time
 connectToDatabase().then(() => {
@@ -33,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Use Routes
 app.use('/api/secondchance/items', secondChanceRoutes);
+
 app.use('/api/secondchance/search', searchRoutes);
 
 // Global Error Handler
